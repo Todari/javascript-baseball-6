@@ -9,7 +9,10 @@ export default class MatchNumber {
   setUserNumber() {
     while (true) {
       try {
-        this.#validate(InputView.getUserNumber());
+        const input = InputView.getUserNumber();
+
+        this.#validate(input);
+        this.#userNumber = input;
 
         break;
       } catch (error) {
