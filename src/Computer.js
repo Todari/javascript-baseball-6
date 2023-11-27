@@ -4,10 +4,10 @@ export default class Computer {
   #number;
 
   constructor() {
-    this.setNumber();
+    this.#setNumber();
   }
 
-  setNumber() {
+  #setNumber() {
     const number = [];
 
     while (number.length < 3) {
