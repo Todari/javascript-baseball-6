@@ -1,7 +1,8 @@
 import InputView from './view/InputView.js';
 import OutputView from './view/OutputView.js';
 import REGEXP from './constants/RegExp.js';
-import InputNumberError from './error/CustomError.js';
+import { NumberDuplicatedError, NumberTypeError } from './error/CustomError.js';
+import SETTING from './constants/Setting.js';
 
 export default class MatchNumber {
   #userNumber;
@@ -12,7 +13,7 @@ export default class MatchNumber {
         const input = InputView.getUserNumber();
 
         this.#validate(input);
-        this.#userNumber = input;
+        this.#userNumber = [...Number(input.split())];
 
         break;
       } catch (error) {
@@ -23,7 +24,11 @@ export default class MatchNumber {
 
   #validate(number) {
     if (!REGEXP.inputNumber.test(number)) {
-      throw new InputNumberError();
+      throw new NumberTypeError(number);
+    }
+
+    if (Set(number.split()).size !== SETTING.numberLength) {
+      throw new NumberDuplicatedError(number);
     }
   }
 }
